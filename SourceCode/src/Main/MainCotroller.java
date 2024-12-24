@@ -1,11 +1,8 @@
 package Main;
-
-import Startmenue.PanelStart;
-
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Startmenue.PanelStart;
+import GameMode.*;
 
 public class MainCotroller implements ActionListener {
     private PanelStart startPanel= new PanelStart(this);
