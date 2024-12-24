@@ -21,6 +21,7 @@ public class MainCotroller implements ActionListener {
         new MainCotroller();
     }
 
+    // Hier findet die Steuerung der Klassen statt
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
