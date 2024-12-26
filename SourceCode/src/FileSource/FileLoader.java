@@ -1,9 +1,60 @@
 package FileSource;
 import java.io.*;
 
-public class FileLoader {
+/**
+ * Klasse FileLoader ladet, speichert und fügt Fragen hinzu.
+ * WICHTIG:
+ * - Für die Fragen u. Antworten werden mehrdimensionale Arrays verwendet wobei:
+ * -[0][i]: in dieser Reihe werden die Fragen gespeichert
+ * -[1][i]: in dieser Reihe werden die Antworten gespeichert
+ * @author David Socaciu
+ * @version 2024-12-26
+ */
 
-    public void saveFragen(String fileName){
+public class FileLoader {
+    /**
+     * Methode saveFragen übernimmt einen Fragenpool sowie einen Dateinamen und speichert die Fragen u. Antworten in einer Datei
+     * @param fileName Der Name der Datei
+     * @param fragenAntworten Der Fragenpool mit Fragen u. Antworten
+     */
+    public void saveFragen(String fileName, String[][] fragenAntworten){
+        BufferedWriter bw = null;
+        File f = null;
+        if(!fileName.equals("")){
+            f = new File(fileName);
+        }else{
+            f = new File("Fragepool");
+        }
+        try{
+            bw = new BufferedWriter(new FileWriter(f));
+            bw.write("FRAGEPOOL - SEWFACHBEGRIFFE");
+            bw.newLine();
+            bw.write("++++++++++");
+            bw.newLine();
+            for(int i = 0; i < fragenAntworten[0].length; i++){
+                if(fragenAntworten[0][i] != null && fragenAntworten[1][i] != null){
+                    bw.write("Frage:"+fragenAntworten[0][i]);
+                    bw.newLine();
+                    bw.write("Antwort:"+fragenAntworten[1][i]);
+                    bw.newLine();
+                    bw.write("**********");
+                    bw.newLine();
+                }
+                if(i == fragenAntworten[0].length - 1){
+                    bw.write("++++++++++");
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally {
+            if(bw!= null){
+                try {
+                    bw.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
@@ -63,5 +114,21 @@ public class FileLoader {
             }
         }
         return fragenAntworten;
+    }
+
+    /**
+     * Methode addFrage fügt eine Frage sowie die dazugehörige Antwort zum Fragenpool hinzu
+     * @param fragenAntworten
+     * @param frage
+     * @param antwort
+     */
+    public void addFrage(String[][] fragenAntworten, String frage, String antwort){
+        for(int i = 0; i < fragenAntworten.length; i++){
+            if(fragenAntworten[0][i] == null && fragenAntworten[1][i] == null){
+                fragenAntworten[0][i] = frage;
+                fragenAntworten[1][i] = antwort;
+            }
+        }
+
     }
 }
