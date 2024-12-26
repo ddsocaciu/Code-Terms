@@ -17,7 +17,7 @@ public class MainCotroller implements ActionListener {
 
     public MainCotroller() {
         this.startPanel.setVisible(true);
-        this.startPanel.setLocation(500, 200);
+        this.startPanel.setLocation(250, 100);
     }
 
     public static void main(String[] args) {

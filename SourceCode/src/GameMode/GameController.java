@@ -23,6 +23,7 @@ public class GameController {
 
             frame.add(gamePanel);
             frame.setSize(400, 300);
+            frame.setLocation(250, 100);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
 
