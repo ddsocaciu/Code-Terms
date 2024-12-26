@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 import Startmenue.PanelStart;
 import GameMode.GameController;
 
+/**
+ * Diese Klasse managed die Applikation vom Startmenü aus
+ *
+ * @author Maximilian Mahrhofer
+ * @version 2024-12-24
+ */
 public class MainCotroller implements ActionListener {
     private PanelStart startPanel = new PanelStart(this);
     private GameController gameController = new GameController();

@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ *
  * Frontend für das Startmenü
+ * @author Maximilian Mahrhofer
+ * @version 2024-12-02
  */
 public class PanelStart extends JFrame {
     private JButton fileButton, quizButton, gameButton, exitButton;
