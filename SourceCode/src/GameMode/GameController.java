@@ -1,25 +1,24 @@
 package GameMode;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
 public class GameController {
-    private GamePaint gamePaint;
+    private GameModel gameModel;
 
     public GameController() {
-        this.gamePaint = new GamePaint();
+        this.gameModel = new GameModel();
     }
 
     public void startGame() {
         try {
             // Hier werden die Fragen geladen
-            List<String[]> questions = gamePaint.loadQuestions("C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame");
+            List<String[]> questions = gameModel.loadQuestions("C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame");
 
             // Das Spieler Fenster wird hier erstellt
             JFrame frame = new JFrame("Hangman Game");
-            GamePanel gamePanel = new GamePanel(gamePaint);
+            GamePanel gamePanel = new GamePanel(gameModel);
 
             frame.add(gamePanel);
             frame.setSize(400, 300);

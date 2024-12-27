@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GamePaint {
+public class GameModel {
     private int wrongGuesses = 0;
     private final Color color = Color.BLACK;
     private List<String[]> questions;
     private String[] currentQA;
 
-    public GamePaint() {
+    public GameModel() {
         try {
             this.questions = loadQuestions("C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame");
             selectRandomQuestion();

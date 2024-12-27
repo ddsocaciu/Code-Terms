@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel {
-    private final GamePaint gamePaint;
+    private final GameModel gameModel;
     private String currentWordState;
     private String currentAnswer;
     private final JLabel questionLabel;
@@ -14,16 +14,16 @@ public class GamePanel extends JPanel {
     private final JTextField inputField;
     private final JButton submitButton;
 
-    public GamePanel(GamePaint gamePaint) {
-        this.gamePaint = gamePaint;
-        this.currentAnswer = gamePaint.getCurrentAnswer();
+    public GamePanel(GameModel gameModel) {
+        this.gameModel = gameModel;
+        this.currentAnswer = gameModel.getCurrentAnswer();
         this.currentWordState = "_".repeat(currentAnswer.length());
 
         setLayout(new BorderLayout());
 
         JPanel questionPanel = new JPanel();
         questionPanel.setLayout(new BorderLayout());
-        questionLabel = new JLabel("Frage: " + gamePaint.getCurrentQuestion());
+        questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion());
         questionPanel.add(questionLabel, BorderLayout.NORTH);
 
         wordStateLabel = new JLabel("Wort: " + currentWordState);
@@ -76,10 +76,10 @@ public class GamePanel extends JPanel {
                 }
             }
         } else {
-            gamePaint.incrementWrongGuesses();
+            gameModel.incrementWrongGuesses();
             repaint();
 
-            if (gamePaint.isGameOver()) {
+            if (gameModel.isGameOver()) {
                 JOptionPane.showMessageDialog(this, "Game Over! Das korrekte Wort war: " + currentAnswer);
                 int playAgain = JOptionPane.showConfirmDialog(this, "Nochmal spielen?", "Game Over", JOptionPane.YES_NO_OPTION);
                 if (playAgain == JOptionPane.YES_OPTION) {
@@ -90,10 +90,10 @@ public class GamePanel extends JPanel {
     }
 
     private void restartGame() {
-        gamePaint.resetGame();
-        currentAnswer = gamePaint.getCurrentAnswer();
+        gameModel.resetGame();
+        currentAnswer = gameModel.getCurrentAnswer();
         currentWordState = "_".repeat(currentAnswer.length());
-        questionLabel.setText("Frage: " + gamePaint.getCurrentQuestion());
+        questionLabel.setText("Frage: " + gameModel.getCurrentQuestion());
         wordStateLabel.setText("Wort: " + currentWordState);
         repaint();
     }
@@ -101,6 +101,6 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        gamePaint.draw(g);
+        gameModel.draw(g);
     }
 }

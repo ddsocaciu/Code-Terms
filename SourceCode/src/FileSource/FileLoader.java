@@ -71,7 +71,7 @@ public class FileLoader {
     public String[][] loadFragen(String fileName){
         String[][] fragenAntworten = new String[2][50];
         File f = null;
-        String tempPath = "C:\\Users\\Socac\\Desktop\\TGM\\2024_25\\SEW\\IntelliJ\\ITP_Projekt\\SourceCode\\src\\FileSource\\";
+        String tempPath = "C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame";
         BufferedReader br = null;
         int counterFragen = 0;
         int counterAntworten = 0;
