@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Diese Klasse stellt die UI des Hangman Games dar
+ */
 public class GamePanel extends JPanel {
     private final GameModel gameModel;
     private String currentWordState;
@@ -15,6 +18,9 @@ public class GamePanel extends JPanel {
     private final JButton submitButton;
 
     public GamePanel(GameModel gameModel) {
+        if (gameModel == null) {
+            throw new IllegalArgumentException("GameModel darf nicht null sein");
+        }
         this.gameModel = gameModel;
         this.currentAnswer = gameModel.getCurrentAnswer();
         this.currentWordState = "_".repeat(currentAnswer.length());
@@ -101,6 +107,8 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        gameModel.draw(g);
+        if (gameModel != null) {
+            gameModel.draw(g);
+        }
     }
 }
