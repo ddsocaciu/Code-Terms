@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 /**
  * Diese Klasse stellt die UI des Hangman Games dar
+ *
+ * @author Maximilian Mahrhofer
+ * @version 2024-12-27
  */
 public class GamePanel extends JPanel {
     private final GameModel gameModel;
@@ -80,6 +83,7 @@ public class GamePanel extends JPanel {
                 if (playAgain == JOptionPane.YES_OPTION) {
                     restartGame();
                 }
+
             }
         } else {
             gameModel.incrementWrongGuesses();

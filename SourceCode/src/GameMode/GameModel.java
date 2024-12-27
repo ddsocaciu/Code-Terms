@@ -1,11 +1,16 @@
 package GameMode;
 
+import FileSource.FileLoader;
+
 import java.awt.*;
 import java.io.*;
 import java.util.Random;
 
 /**
- * Diese Klasse stellt die Logik des hangman Games dar
+ * Diese Klasse stellt die Logik des Hangman Games dar
+ *
+ * @author Maximilian Mahrhofer
+ * @version 2024-12-27
  */
 public class GameModel {
     private int wrongGuesses = 0;
@@ -13,6 +18,7 @@ public class GameModel {
     private String[][] questions; // 2D-Array für Fragen und Antworten
     private String[] currentQA; // Aktuelle Frage und Antwort
     private int questionCount; // Anzahl der geladenen Fragen
+    FileLoader fileLoader = new FileLoader();
 
     public GameModel() {
         this.questions = new String[100][2]; // Maximale Anzahl von Fragen (100)
@@ -22,35 +28,24 @@ public class GameModel {
 
     // Lade Fragen aus der Datei
     public void loadQuestions(String filePath) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        String question = null;
-        String answer = null;
+        // Fragen mit der loadQuestions Methode aus der FileLoader-Klasse laden
+        questions = fileLoader.loadQuestions(filePath);
+        questionCount = 0;
 
-        // Lesen der Datei und Erstellen der Fragen-Antworten Paare
-        while ((line = reader.readLine()) != null) {
-            if (line.startsWith("Frage:")) {
-                question = line.substring(6).trim(); // Frage extrahieren
-            } else if (line.startsWith("Antwort:")) {
-                answer = line.substring(8).trim(); // Antwort extrahieren
-            } else if (line.startsWith("**********")) {
-                // Sobald ein Frage-Antwort Paar vollständig ist, in Array speichern
-                if (question != null && answer != null) {
-                    questions[questionCount][0] = question;
-                    questions[questionCount][1] = answer;
-                    questionCount++; // Zähler erhöhen, wenn eine Frage geladen wurde
-                    question = null;
-                    answer = null;
-                }
+        // Zähler für die Anzahl der geladenen Fragen
+        for (String[] question : questions) {
+            if (question[0] != null && question[1] != null) {
+                questionCount++;
             }
         }
-        reader.close();
 
         // Überprüfen, ob Fragen erfolgreich geladen wurden
         if (questionCount == 0) {
             throw new IOException("Keine Fragen gefunden oder Fehler beim Laden der Fragen.");
         }
     }
+
+
 
     // Zufällige Frage auswählen
     public void selectRandomQuestion() {
