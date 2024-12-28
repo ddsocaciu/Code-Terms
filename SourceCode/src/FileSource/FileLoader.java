@@ -73,7 +73,7 @@ public class FileLoader {
         }
 
     }
-    /**
+
     public String[][] loadQuestions(String filePath) throws IOException {
         String[][] fragenAntworten = new String[50][2];     // Hier ist die Maximale Anzahl an Fragen und Antworten auf 50 festgelegt
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -109,7 +109,7 @@ public class FileLoader {
 
         return fragenAntworten;
     }
-     */
+
 
 
 
@@ -126,14 +126,14 @@ public class FileLoader {
         public String[][] loadFragen(String fileName){
             String[][] fragenAntworten = new String[2][50];
             File f = null;
-            String tempPath = "C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame";
+            String defPath = "./";
             BufferedReader br = null;
             int counterFragen = 0;
             int counterAntworten = 0;
             if(!fileName.equals("")){
                 f = new File(fileName);
                 try{
-                    br = new BufferedReader(new FileReader(tempPath + f));
+                    br = new BufferedReader(new FileReader(defPath + f));
                     String line = "";
                     while((line = br.readLine()) != null){
                         if(line.startsWith("Frage:")){

@@ -2,6 +2,8 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import FileSource.FileInfoPanel;
 import Startmenue.PanelStart;
 import GameMode.GameController;
 
@@ -30,6 +32,7 @@ public class MainCotroller implements ActionListener {
         String action = e.getActionCommand();
         if ("start_file".equals(action)) {
             // Datei Bearbeitung
+            new FileInfoPanel(this);
         } else if ("start_quiz".equals(action)) {
             // Quiz Modus
         } else if ("start_game".equals(action)) {
