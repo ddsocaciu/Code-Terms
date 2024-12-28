@@ -110,7 +110,7 @@ public class FileLoader {
     }
 
 
-    /*
+
         /**
          * Methode loadFragen ladet alle Fragen & Antworten aus der bestimmten Datei und speichert sie in einem mehrdimensionalen
          * String-Array und gibt sie anschließend zurück.
@@ -120,7 +120,7 @@ public class FileLoader {
          *
          * @param fileName
          * @return
-         /
+         */
         public String[][] loadFragen(String fileName){
             String[][] fragenAntworten = new String[2][50];
             File f = null;
@@ -168,6 +168,4 @@ public class FileLoader {
             }
             return fragenAntworten;
         }
-
-     */
 }
