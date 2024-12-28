@@ -15,31 +15,31 @@ import java.util.Random;
 public class GameModel {
     private int wrongGuesses = 0;
     private final Color color = Color.BLACK;
-    private String[][] questions; // 2D-Array für Fragen und Antworten
-    private String[] currentQA; // Aktuelle Frage und Antwort
-    private int questionCount; // Anzahl der geladenen Fragen
+    private String[][] questions;
+    private String[] currentQA;
+    private int questionCount;
     FileLoader fileLoader = new FileLoader();
 
     public GameModel() {
         this.questions = new String[100][2]; // Maximale Anzahl von Fragen (100)
         this.currentQA = new String[2]; // Initialisierung für eine Frage
-        this.questionCount = 0; // Initialisieren der Frageanzahl
+        this.questionCount = 0; //  Frageanzahl
     }
 
     // Lade Fragen aus der Datei
     public void loadQuestions(String filePath) throws IOException {
-        // Fragen mit der loadQuestions Methode aus der FileLoader-Klasse laden
-        questions = fileLoader.loadQuestions(filePath);
+
+        questions = fileLoader.loadFragen(filePath);
         questionCount = 0;
 
-        // Zähler für die Anzahl der geladenen Fragen
+
         for (String[] question : questions) {
             if (question[0] != null && question[1] != null) {
                 questionCount++;
             }
         }
 
-        // Überprüfen, ob Fragen erfolgreich geladen wurden
+
         if (questionCount == 0) {
             throw new IOException("Keine Fragen gefunden oder Fehler beim Laden der Fragen.");
         }
