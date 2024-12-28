@@ -73,6 +73,7 @@ public class FileLoader {
         }
 
     }
+    /**
     public String[][] loadQuestions(String filePath) throws IOException {
         String[][] fragenAntworten = new String[50][2];     // Hier ist die Maximale Anzahl an Fragen und Antworten auf 50 festgelegt
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -108,6 +109,7 @@ public class FileLoader {
 
         return fragenAntworten;
     }
+     */
 
 
 
