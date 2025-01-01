@@ -19,7 +19,7 @@ public class GameController {
     public void startGame() {
         try {
             // Fragen laden
-            gameModel.loadQuestions("C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer _QuizGame");
+            gameModel.loadQuestions("C:\\Users\\jades\\Documents\\GitHub\\ITP_Projekt\\SourceCode\\src\\FileSource\\Questions_Answer_QuizGame");
 
             // Zufällige Frage auswählen
             gameModel.selectRandomQuestion();
