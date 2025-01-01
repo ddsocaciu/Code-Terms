@@ -3,9 +3,9 @@ package Main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import FileSource.FileInfoPanel;
-import Startmenue.PanelStart;
-import GameMode.GameController;
+import FileSource.*;
+import Startmenue.*;
+import GameMode.*;
 
 /**
  * Diese Klasse managed die Applikation vom Startmenü aus
