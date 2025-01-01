@@ -14,7 +14,7 @@ import GameMode.*;
  * @version 2024-12-24
  */
 public class MainCotroller implements ActionListener {
-    private PanelStart startPanel = new PanelStart(this);
+    private StartPanel startPanel = new StartPanel(this);
     private GameController gameController = new GameController();
 
     public MainCotroller() {
