@@ -58,61 +58,6 @@ public class FileLoader {
 
     }
 
-    /**
-     * Methode addFrage fügt eine Frage sowie die dazugehörige Antwort zum Fragenpool hinzu
-     * @param fragenAntworten
-     * @param frage
-     * @param antwort
-     */
-    public void addFrage(String[][] fragenAntworten, String frage, String antwort){
-        for(int i = 0; i < fragenAntworten.length; i++){
-            if(fragenAntworten[0][i] == null && fragenAntworten[1][i] == null){
-                fragenAntworten[0][i] = frage;
-                fragenAntworten[1][i] = antwort;
-            }
-        }
-
-    }
-
-    public String[][] loadQuestions(String filePath) throws IOException {
-        String[][] fragenAntworten = new String[50][2];     // Hier ist die Maximale Anzahl an Fragen und Antworten auf 50 festgelegt
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        String question = null;
-        String answer = null;
-        int i = 0;
-
-        // Lesen der Datei und Erstellen der Fragen-Antworten Paare
-        while ((line = reader.readLine()) != null && i < 50) {
-            if (line.startsWith("Frage:")) {
-                question = line.substring(6).trim();    // Frage extrahieren
-            } else if (line.startsWith("Antwort:")) {
-                answer = line.substring(8).trim();     // Antwort extrahieren
-            } else if (line.startsWith("**********")) {
-
-                // Sobald ein Frage-Antwort Paar vollständig ist, in Array speichern
-                if (question != null && answer != null) {
-                    fragenAntworten[i][0] = question;
-                    fragenAntworten[i][1] = answer;
-                    i++;                                        // Der Index für die nächste Frage wird erhöht
-                    question = null;
-                    answer = null;
-                } else if (question != null && answer == null) {
-                    System.err.println("Keine Verfügbare Antwort");
-                }else if (question == null && answer != null) {
-                    System.err.println("Keine Verfügbare Frage");
-                }
-            }
-
-        }
-        reader.close();
-
-        return fragenAntworten;
-    }
-
-
-
-
         /**
          * Methode loadFragen ladet alle Fragen & Antworten aus der bestimmten Datei und speichert sie in einem mehrdimensionalen
          * String-Array und gibt sie anschließend zurück.
@@ -170,4 +115,68 @@ public class FileLoader {
             }
             return fragenAntworten;
         }
+
+    /**
+     * Methode addFrage fügt eine Frage sowie die dazugehörige Antwort zum Fragenpool hinzu
+     * @param fragenAntworten
+     * @param frage
+     * @param antwort
+     */
+    public void addFrage(String[][] fragenAntworten, String frage, String antwort) {
+        for (int i = 0; i < fragenAntworten.length; i++) {
+            if (fragenAntworten[0][i] == null && fragenAntworten[1][i] == null) {
+                fragenAntworten[0][i] = frage;
+                fragenAntworten[1][i] = antwort;
+            }
+        }
+    }
+
+    /**
+     * Methode textFormat speichert den Fragepool aus einem mehrdimensionalen Array in einem String
+     * - WIRD NUR FÜR DIE DATEIVERWALTUNG VERWENDET
+     *
+     * @param fileName
+     * @return
+     */
+    public String textFormat(String fileName){
+        String text = "";
+        String[][] fragenAntworten = loadFragen(fileName);
+        for (int i = 0; i < fragenAntworten[0].length; i++) {
+            if (fragenAntworten[0][i] != null && fragenAntworten[1][i] != null) {
+                text += "Frage:" +fragenAntworten[0][i] +"\n";
+                text += "Antwort:" +fragenAntworten[1][i] +"\n\n";
+            }
+        }
+        return text;
+    }
+
+    /**
+     * METHODE saveFormat speichert einen String bzw. die vom Benutzer eingegebenen Fragen im Dateiverwaltung Panel in einem merhdimensionalen damit er in eine
+     * Datei gespeichert werden kann
+     * - WIRD NUR FÜR DIE DATEIVERWALTUNG VERWENDET
+     * @param pool
+     * @return
+     */
+    public String[][] saveFormat(String pool){
+        String[][] fragepool = new String[2][50];
+
+        String[] split = pool.split("\n");
+
+        int frageIndex = 0;
+        int antwortIndex = 0;
+
+        for (int i = 0; i < split.length; i++) {
+            if (split[i].startsWith("Frage:")) {
+                fragepool[0][frageIndex] = split[i];
+                frageIndex++;
+                System.out.println("Frage: " + split[i]);
+            } else if (split[i].startsWith("Antwort:")) {
+                fragepool[1][antwortIndex] = split[i];
+                antwortIndex++;
+                System.out.println("Antwort: " + split[i]);
+            }
+        }
+
+        return fragepool;
+    }
 }
