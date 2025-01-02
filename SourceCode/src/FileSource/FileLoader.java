@@ -33,9 +33,9 @@ public class FileLoader {
             bw.newLine();
             for(int i = 0; i < fragenAntworten[0].length; i++){
                 if(fragenAntworten[0][i] != null && fragenAntworten[1][i] != null){
-                    bw.write("Frage:"+fragenAntworten[0][i]);
+                    bw.write(fragenAntworten[0][i]);
                     bw.newLine();
-                    bw.write("Antwort:"+fragenAntworten[1][i]);
+                    bw.write(fragenAntworten[1][i]);
                     bw.newLine();
                     bw.write("**********");
                     bw.newLine();
