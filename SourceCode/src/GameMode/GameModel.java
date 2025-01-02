@@ -29,7 +29,7 @@ public class GameModel {
     // Lade Fragen aus der Datei
     public void loadQuestions(String filePath) throws IOException {
 
-        questions = fileLoader.loadQuestions(filePath);
+        //questions = fileLoader.loadQuestions(filePath);
         questionCount = 0;
 
 
