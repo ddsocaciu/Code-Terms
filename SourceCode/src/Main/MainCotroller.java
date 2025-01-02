@@ -17,6 +17,10 @@ public class MainCotroller implements ActionListener {
     private StartPanel startPanel = new StartPanel(this);
     private GameController gameController = new GameController();
 
+    private FileInfoPanel fip;
+    private FilePanel fp;
+    private FileLoader fileLoader = new FileLoader();
+
     public MainCotroller() {
         this.startPanel.setVisible(true);
         this.startPanel.setLocation(250, 100);
@@ -30,14 +34,49 @@ public class MainCotroller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        if ("start_file".equals(action)) {
+        /**
+         * EVENTHANDLER nur für die DATEIVERWALTUNG
+         */
+
+        if ("start_file".equals(action)){
             // Datei Bearbeitung
-            new FileInfoPanel(this);
-        } else if ("start_quiz".equals(action)) {
+            fip = new FileInfoPanel(this);
+            startPanel.setVisible(false);
+        } else if (action.equals("weiter_fileinfopanel")){
+            fip.setVisible(false);
+            fp = new FilePanel(this);
+        } else if (action.equals("beenden_fileinfopanel")){
+            System.exit(0);
+        } else if(action.equals("zurueck_filepanel")) {
+            fp.setVisible(false);
+            startPanel.setVisible(true);
+        }else if(action.equals("delete_filepanel")){
+            fp.deleteFragen();
+        }else if(action.equals("laden_filepanel")){
+            String filename = fp.getText();
+            String pool = fileLoader.textFormat(filename);
+            fp.loadFragen(pool);
+        }else if(action.equals("speichern_filepanel")){
+            String fragenuAntworten = fp.getText();
+            String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
+            fileLoader.saveFragen("neueFragen2", fragepool);
+        }
+        /**
+         * EVENTHANDLER nur für den QUIZMODUS
+         */
+        if ("start_quiz".equals(action)) {
             // Quiz Modus
-        } else if ("start_game".equals(action)) {
+        }
+        /**
+         * EVENTHANDLER nur für den SPIELMODUS
+         */
+        if ("start_game".equals(action)) {
             gameController.startGame(); // Spiel starten
-        } else if ("start_exit".equals(action)) {
+        }
+        /**
+         * EVENTHANDLER nur für den EXIT
+         */
+        if ("start_exit".equals(action)) {
             startPanel.close();
         }
     }
