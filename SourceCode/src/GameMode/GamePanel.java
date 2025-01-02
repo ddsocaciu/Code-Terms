@@ -1,65 +1,65 @@
 package GameMode;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
- * Diese Klasse stellt die UI des Hangman Games dar
+ * Diese Klasse stellt die UI des Hangman-Games dar.
  *
  * @author Maximilian Mahrhofer
  * @version 2024-12-27
  */
 public class GamePanel extends JPanel {
     private final GameModel gameModel;
-    private String currentWordState;
-    private String currentAnswer;
+    private final JTextField inputField;
     private final JLabel questionLabel;
     private final JLabel wordStateLabel;
-    private final JTextField inputField;
-    private final JButton submitButton;
+    private String currentWordState;
+    private String currentAnswer;
 
-    public GamePanel(GameModel gameModel) {
-        if (gameModel == null) {
-            throw new IllegalArgumentException("GameModel darf nicht null sein");
+    public GamePanel(GameModel gameModel, GameController controller) {
+        if (gameModel == null || controller == null) {
+            throw new IllegalArgumentException("GameModel und Controller dürfen nicht null sein");
         }
+
         this.gameModel = gameModel;
         this.currentAnswer = gameModel.getCurrentAnswer();
         this.currentWordState = "_".repeat(currentAnswer.length());
 
         setLayout(new BorderLayout());
 
+        // Fragenanzeige
         JPanel questionPanel = new JPanel();
         questionPanel.setLayout(new BorderLayout());
         questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion());
         questionPanel.add(questionLabel, BorderLayout.NORTH);
 
+        // Wortstatus-Anzeige
         wordStateLabel = new JLabel("Wort: " + currentWordState);
         questionPanel.add(wordStateLabel, BorderLayout.CENTER);
 
         add(questionPanel, BorderLayout.NORTH);
 
+        // Eingabefeld und Button
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
-
         inputField = new JTextField(5);
-        submitButton = new JButton("Rate");
+        JButton submitButton = new JButton("Rate");
+        submitButton.setActionCommand("submit");
+        submitButton.addActionListener(controller); // Controller als Listener hinzufügen
         inputPanel.add(inputField);
         inputPanel.add(submitButton);
 
         add(inputPanel, BorderLayout.SOUTH);
-
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processGuess(inputField.getText().trim().toLowerCase());
-            }
-        });
     }
 
-    private void processGuess(String guess) {
+    public String getInputText() {
+        return inputField.getText().trim().toLowerCase();
+    }
+
+    public void processGuess(String guess) {
         if (guess.length() != 1) {
-            JOptionPane.showMessageDialog(this, "Bitte nur einen Buchstaben!!!");
+            JOptionPane.showMessageDialog(this, "Bitte nur einen Buchstaben eingeben!");
             return;
         }
 
@@ -78,11 +78,10 @@ public class GamePanel extends JPanel {
             wordStateLabel.setText("Wort: " + currentWordState);
 
             if (!currentWordState.contains("_")) {
-                int playAgain = JOptionPane.showConfirmDialog(this, "You guessed the word! Play again?", "Victory", JOptionPane.YES_NO_OPTION);
+                int playAgain = JOptionPane.showConfirmDialog(this, "Du hast das Wort erraten! Nochmal spielen?", "Victory", JOptionPane.YES_NO_OPTION);
                 if (playAgain == JOptionPane.YES_OPTION) {
                     restartGame();
                 }
-
             }
         } else {
             gameModel.incrementWrongGuesses();
