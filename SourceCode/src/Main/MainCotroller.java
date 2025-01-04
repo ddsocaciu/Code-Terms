@@ -53,13 +53,14 @@ public class MainCotroller implements ActionListener {
         }else if(action.equals("delete_filepanel")){
             fp.deleteFragen();
         }else if(action.equals("laden_filepanel")){
-            String filename = fp.getText();
+            String filename = fp.getName();
             String pool = fileLoader.textFormat(filename);
             fp.loadFragen(pool);
         }else if(action.equals("speichern_filepanel")){
             String fragenuAntworten = fp.getText();
+            String dateiName = fp.getName();
             String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
-            fileLoader.saveFragen("neueFragen2", fragepool);
+            fileLoader.saveFragen(dateiName, fragepool);
         }
         /**
          * EVENTHANDLER nur für den QUIZMODUS

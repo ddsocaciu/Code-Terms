@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * @version 2025-01-02
  */
 public class FilePanel extends JFrame {
-    private JTextArea textArea;
+    private JTextArea textArea, nameArea;
     public FilePanel(MainCotroller mc) {
         this.setTitle("Dateiverwaltung");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,8 +51,10 @@ public class FilePanel extends JFrame {
         panel.add(bt3);
 
         this.add(panel);
-        JPanel buffer = new JPanel();
-        this.add(buffer);
+        nameArea = new JTextArea();
+        nameArea.setEditable(true);
+        nameArea.setText("GIB HIER DEN DATEINAMEN DER ZUR SPEICHERENDEN/LADENE DATEI");
+        this.add(nameArea);
 
         JButton back = new JButton("Zurück zum Hauptmenü");
         back.setActionCommand("zurueck_filepanel");
@@ -69,6 +71,9 @@ public class FilePanel extends JFrame {
     }
     public String getText(){
         return textArea.getText();
+    }
+    public String getName(){
+        return nameArea.getText();
     }
 
 
