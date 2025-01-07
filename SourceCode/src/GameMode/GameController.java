@@ -1,11 +1,12 @@
 package GameMode;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Steuert das Hangman-Spiel und verarbeitet Benutzerinteraktionen (siehe dazu Methode actionPerformed).
+ * Steuert das Hangman-Spiel mit den Buchstaben-Buttons.
  *
  * @author Maximilian Mahrhofer
  * @version 2024-12-27
@@ -24,11 +25,14 @@ public class GameController implements ActionListener {
             gameModel.loadQuestions("Questions_Answer_QuizGame.txt");
             gameModel.selectRandomQuestion();
 
+            // UI erstellen
             JFrame frame = new JFrame("Hangman Game");
             this.gamePanel = new GamePanel(gameModel, this); // Übergibt den Controller
             frame.add(gamePanel);
-            frame.setSize(400, 300);
-            frame.setLocation(250, 100);
+            frame.setMinimumSize(new Dimension(1300, 700));
+            frame.setSize(1900, 1400);
+            frame.setLocation(1, 10);
+
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
 
@@ -39,11 +43,8 @@ public class GameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
-
-        if ("submit".equals(action)) {
-            String guess = gamePanel.getInputText();
-            gamePanel.processGuess(guess);
-        }
+        String letter = e.getActionCommand();
+        gamePanel.disableLetterButton(letter);
+        gamePanel.processGuess(letter);
     }
 }

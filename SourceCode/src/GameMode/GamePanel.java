@@ -2,18 +2,22 @@ package GameMode;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Diese Klasse stellt die UI des Hangman-Games dar.
+ * UI für das Hangman-Spiel.
  *
- * @author Maximilian Mahrhofer
+ * @author Maximilian
  * @version 2024-12-27
  */
 public class GamePanel extends JPanel {
     private final GameModel gameModel;
-    private final JTextField inputField;
     private final JLabel questionLabel;
     private final JLabel wordStateLabel;
+    private final JPanel drawingPanel;
+    private final JPanel buttonsPanel;
+    private final List<JButton> letterButtons;
     private String currentWordState;
     private String currentAnswer;
 
@@ -25,41 +29,62 @@ public class GamePanel extends JPanel {
         this.gameModel = gameModel;
         this.currentAnswer = gameModel.getCurrentAnswer();
         this.currentWordState = "_".repeat(currentAnswer.length());
+        this.letterButtons = new ArrayList<>();
 
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(3, 1));
 
-        // Fragenanzeige
-        JPanel questionPanel = new JPanel();
-        questionPanel.setLayout(new BorderLayout());
-        questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion());
-        questionPanel.add(questionLabel, BorderLayout.NORTH);
+        // Frage anzeigen
+        questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion(), SwingConstants.CENTER);
+        add(questionLabel);
 
-        // Wortstatus-Anzeige
-        wordStateLabel = new JLabel("Wort: " + currentWordState);
-        questionPanel.add(wordStateLabel, BorderLayout.CENTER);
+        // Zeichen- und Wortstatus-Panel
+        JPanel middlePanel = new JPanel(new BorderLayout());
+        wordStateLabel = new JLabel("Wort: " + currentWordState, SwingConstants.CENTER);
+        middlePanel.add(wordStateLabel, BorderLayout.NORTH);
 
-        add(questionPanel, BorderLayout.NORTH);
+        drawingPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                gameModel.draw(g);
+            }
+        };
+        middlePanel.add(drawingPanel, BorderLayout.CENTER);
 
-        // Eingabefeld und Button
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new FlowLayout());
-        inputField = new JTextField(5);
-        JButton submitButton = new JButton("Rate");
-        submitButton.setActionCommand("submit");
-        submitButton.addActionListener(controller); // Controller als Listener hinzufügen
-        inputPanel.add(inputField);
-        inputPanel.add(submitButton);
+        add(middlePanel);
 
-        add(inputPanel, BorderLayout.SOUTH);
+        // Buchstaben-Buttons
+        buttonsPanel = new JPanel(new GridLayout(3, 9, 5, 5));
+        createLetterButtons(controller);
+        add(buttonsPanel);
     }
 
-    public String getInputText() {
-        return inputField.getText().trim().toLowerCase();
+    private void createLetterButtons(GameController controller) {
+        buttonsPanel.removeAll();
+        letterButtons.clear();
+
+        for (char c = 'A'; c <= 'Z'; c++) {
+            JButton button = new JButton(String.valueOf(c));
+            button.setActionCommand(String.valueOf(c).toLowerCase());
+            button.addActionListener(controller);
+            letterButtons.add(button);
+            buttonsPanel.add(button);
+        }
+        buttonsPanel.revalidate();
+        buttonsPanel.repaint();
+    }
+
+    public void disableLetterButton(String letter) {
+        for (JButton button : letterButtons) {
+            if (button.getText().equalsIgnoreCase(letter)) {
+                button.setEnabled(false);
+                break;
+            }
+        }
     }
 
     public void processGuess(String guess) {
         if (guess.length() != 1) {
-            JOptionPane.showMessageDialog(this, "Bitte nur einen Buchstaben eingeben!");
             return;
         }
 
@@ -85,7 +110,7 @@ public class GamePanel extends JPanel {
             }
         } else {
             gameModel.incrementWrongGuesses();
-            repaint();
+            drawingPanel.repaint();
 
             if (gameModel.isGameOver()) {
                 JOptionPane.showMessageDialog(this, "Game Over! Das korrekte Wort war: " + currentAnswer);
@@ -103,14 +128,7 @@ public class GamePanel extends JPanel {
         currentWordState = "_".repeat(currentAnswer.length());
         questionLabel.setText("Frage: " + gameModel.getCurrentQuestion());
         wordStateLabel.setText("Wort: " + currentWordState);
-        repaint();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (gameModel != null) {
-            gameModel.draw(g);
-        }
+        createLetterButtons(null); // Reset Buttons
+        drawingPanel.repaint();
     }
 }

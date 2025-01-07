@@ -1,6 +1,7 @@
 package GameMode;
 
 import FileSource.FileLoader;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.Random;
@@ -25,7 +26,6 @@ public class GameModel {
         this.questionCount = 0;           // Anzahl der geladenen Fragen.
     }
 
-    // Lade Fragen aus einer Datei.
     public void loadQuestions(String filePath) throws IOException {
         questions = fileLoader.loadFragen(filePath);
         questionCount = 0;
@@ -41,7 +41,6 @@ public class GameModel {
         }
     }
 
-    // Wählt eine zufällige Frage aus.
     public void selectRandomQuestion() {
         if (questionCount == 0) {
             currentQA = new String[]{"Keine Frage Verfügbar", ""};
