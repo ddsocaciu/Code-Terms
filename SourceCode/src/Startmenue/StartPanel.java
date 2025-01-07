@@ -17,8 +17,17 @@ public class StartPanel extends JFrame {
             Das Frame für das Startmenü
          */
         this.setTitle("Startmenü");
+
+        //Standart Groeß
         this.setSize(800, 600);
 
+        //Standart Position
+        this.setLocation(550, 200);
+
+        //Minimale Groeße
+        this.setMinimumSize(new Dimension(600, 600));
+
+        // Default Operationen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setDefaultCloseOperation(3);
         this.getContentPane().setBackground(Color.WHITE);
