@@ -124,6 +124,7 @@ public class StartPanel extends JFrame {
         JPanel emptyPanel7 = new JPanel();
         emptyPanel7.setBackground(Color.WHITE);
         add(emptyPanel7);
+
     }
     public  void close() {
         System.exit(0);
