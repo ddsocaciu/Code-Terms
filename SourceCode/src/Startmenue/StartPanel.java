@@ -35,36 +35,42 @@ public class StartPanel extends JFrame {
         /*
             Das Grid Layout mit Inhalt
          */
-        setLayout(new GridLayout(3, 3, 10, 10));
+        setLayout(new GridLayout(3, 3));
         setBackground(Color.WHITE);
 
 
         /*
             Adden der Panels sowie der leeren Panels
          */
-
         //leer
         JPanel emptyPanel1 = new JPanel();
         emptyPanel1.setBackground(Color.WHITE);
         add(emptyPanel1);
 
+
         // Label zum waehlen des Modus
-        JLabel titleLabel = new JLabel("Wähle deinen Modus:", JLabel.LEFT);
+        JLabel titleLabel = new JLabel("Wähle deinen Modus", JLabel.LEFT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        JPanel titlePanel = new JPanel(new BorderLayout());
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel buffer = new JLabel();
+        JPanel titlePanel = new JPanel(new GridLayout(2,1));
         titlePanel.setBackground(Color.WHITE);
-        titlePanel.add(titleLabel, BorderLayout.WEST);
-        add(titlePanel);
+        titlePanel.add(buffer);
+        titlePanel.add(titleLabel);
+        this.add(titlePanel);
+
 
         //leer
         JPanel emptyPanel2 = new JPanel();
         emptyPanel2.setBackground(Color.WHITE);
         add(emptyPanel2);
 
+
         //leer
         JPanel emptyPanel3 = new JPanel();
         emptyPanel3.setBackground(Color.WHITE);
         add(emptyPanel3);
+
 
 
         // ButtonPanel und Buttons, sowie hinzufuegen der ActionListener
@@ -98,8 +104,6 @@ public class StartPanel extends JFrame {
         this.quizButton.addActionListener(controller);
         this.gameButton.addActionListener(controller);
         this.exitButton.addActionListener(controller);
-
-
 
         //leer
         JPanel emptyPanel4 = new JPanel();
