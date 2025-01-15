@@ -1,5 +1,7 @@
 package GameMode;
 
+import Main.MainCotroller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class GamePanel extends JPanel {
     private final List<JButton> letterButtons;
     private String currentWordState;
     private String currentAnswer;
-
+    private JButton startMenueButton;
     public GamePanel(GameModel gameModel, GameController controller) {
         if (gameModel == null || controller == null) {
             throw new IllegalArgumentException("GameModel und Controller dürfen nicht null sein");
@@ -57,11 +59,14 @@ public class GamePanel extends JPanel {
         buttonsPanel = new JPanel(new GridLayout(3, 9, 5, 5));
         createLetterButtons(controller);
         add(buttonsPanel);
+
+
     }
 
     private void createLetterButtons(GameController controller) {
         buttonsPanel.removeAll();
         letterButtons.clear();
+
 
         for (char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(String.valueOf(c));
@@ -70,6 +75,11 @@ public class GamePanel extends JPanel {
             letterButtons.add(button);
             buttonsPanel.add(button);
         }
+        startMenueButton = new JButton("Zurueck zum Hauptmenue");
+        buttonsPanel.add(startMenueButton);
+
+        startMenueButton.setActionCommand("zurueck_gamepanel");
+        startMenueButton.addActionListener(controller);
         buttonsPanel.revalidate();
         buttonsPanel.repaint();
     }

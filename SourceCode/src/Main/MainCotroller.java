@@ -16,7 +16,7 @@ import GameMode.*;
 public class MainCotroller implements ActionListener {
     private StartPanel startPanel = new StartPanel(this);
     private GameController gameController = new GameController();
-
+    private GamePanel gamePanel;
     private FileInfoPanel fip;
     private FilePanel fp;
     private FileLoader fileLoader = new FileLoader();
@@ -49,6 +49,9 @@ public class MainCotroller implements ActionListener {
         } else if(action.equals("zurueck_filepanel")) {
             fp.setVisible(false);
             startPanel.setVisible(true);
+        } else if(action.equals("zurueck_gamepanel")) {
+            gamePanel.setVisible(false);
+            startPanel.setVisible(true);
         }else if(action.equals("delete_filepanel")){
             fp.deleteFragen();
         }else if(action.equals("laden_filepanel")){
@@ -72,6 +75,7 @@ public class MainCotroller implements ActionListener {
          */
         if ("start_game".equals(action)) {
             gameController.startGame(); // Spiel starten
+            startPanel.setVisible(false);
         }
         /**
          * EVENTHANDLER nur für den EXIT
