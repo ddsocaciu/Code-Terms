@@ -1,3 +1,5 @@
+FRAGEPOOL - SEWFACHBEGRIFFE
+++++++++++
 Frage:Wie nennt man die Maschine, die Java-Bytecode ausführt?
 Antwort:JVM
 **********
