@@ -15,6 +15,9 @@ public class GameController implements ActionListener {
     private final GameModel gameModel;
     private GamePanel gamePanel;
 
+    /**
+     *
+     */
     public GameController() {
         this.gameModel = new GameModel();
     }
