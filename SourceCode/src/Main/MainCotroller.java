@@ -38,7 +38,7 @@ public class MainCotroller implements ActionListener {
          */
 
         if ("start_file".equals(action)){
-            // Datei Bearbeitung
+            // Datei Bearbeitung0
             fip = new FileInfoPanel(this);
             startPanel.setVisible(false);
         } else if (action.equals("weiter_fileinfopanel")){
