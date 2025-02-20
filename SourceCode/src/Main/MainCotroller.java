@@ -2,15 +2,17 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 import FileSource.*;
 import Startmenue.*;
 import GameMode.*;
+import QuizMode.*;
 
 /**
  * Diese Klasse managed die Applikation vom Startmenü aus
  *
- * @author Maximilian Mahrhofer
+ * @author Maximilian Mahrhofer, Danilo Prstic
  * @version 2024-12-24
  */
 public class MainCotroller implements ActionListener {
@@ -37,28 +39,28 @@ public class MainCotroller implements ActionListener {
          * EVENTHANDLER nur für die DATEIVERWALTUNG
          */
 
-        if ("start_file".equals(action)){
+        if ("start_file".equals(action)) {
             // Datei Bearbeitung
             fip = new FileInfoPanel(this);
             startPanel.setVisible(false);
-        } else if (action.equals("weiter_fileinfopanel")){
+        } else if (action.equals("weiter_fileinfopanel")) {
             fip.setVisible(false);
             fp = new FilePanel(this);
-        } else if (action.equals("beenden_fileinfopanel")){
+        } else if (action.equals("beenden_fileinfopanel")) {
             System.exit(0);
-        } else if(action.equals("zurueck_filepanel")) {
+        } else if (action.equals("zurueck_filepanel")) {
             fp.setVisible(false);
             startPanel.setVisible(true);
-        } else if(action.equals("zurueck_gamepanel")) {
+        } else if (action.equals("zurueck_gamepanel")) {
             gamePanel.setVisible(false);
             startPanel.setVisible(true);
-        }else if(action.equals("delete_filepanel")){
+        } else if (action.equals("delete_filepanel")) {
             fp.deleteFragen();
-        }else if(action.equals("laden_filepanel")){
+        } else if (action.equals("laden_filepanel")) {
             String filename = fp.getName();
             String pool = fileLoader.textFormat(filename);
             fp.loadFragen(pool);
-        }else if(action.equals("speichern_filepanel")){
+        } else if (action.equals("speichern_filepanel")) {
             String fragenuAntworten = fp.getText();
             String dateiName = fp.getName();
             String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
@@ -67,21 +69,26 @@ public class MainCotroller implements ActionListener {
         /**
          * EVENTHANDLER nur für den QUIZMODUS
          */
-        if ("start_quiz".equals(action)) {
-            // Quiz Modus
-        }
-        /**
-         * EVENTHANDLER nur für den SPIELMODUS
-         */
-        if ("start_game".equals(action)) {
-            gameController.startGame(); // Spiel starten
-            startPanel.setVisible(false);
-        }
-        /**
-         * EVENTHANDLER nur für den EXIT
-         */
-        if ("start_exit".equals(action)) {
-            startPanel.close();
+        String action1 = e.getActionCommand();
+
+        // EventHandler für den Quiz-Modus
+        if ("start_quiz".equals(action1)) {
+            // Quiz-Modus starten
+            QuizModel quizModel = new QuizModel(); // QuizModel instanziieren
+            startPanel.setVisible(false); // Das Hauptmenü ausblenden
+            /**
+             * EVENTHANDLER nur für den SPIELMODUS
+             */
+            if ("start_game".equals(action)) {
+                gameController.startGame(); // Spiel starten
+                startPanel.setVisible(false);
+            }
+            /**
+             * EVENTHANDLER nur für den EXIT
+             */
+            if ("start_exit".equals(action)) {
+                startPanel.close();
+            }
         }
     }
 }
