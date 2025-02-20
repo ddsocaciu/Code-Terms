@@ -23,6 +23,12 @@ public class GamePanel extends JPanel {
     private String currentWordState;
     private String currentAnswer;
     private JButton startMenueButton;
+
+    /**
+     *
+     * @param gameModel
+     * @param controller
+     */
     public GamePanel(GameModel gameModel, GameController controller) {
         if (gameModel == null || controller == null) {
             throw new IllegalArgumentException("GameModel und Controller dürfen nicht null sein");
@@ -66,7 +72,6 @@ public class GamePanel extends JPanel {
     private void createLetterButtons(GameController controller) {
         buttonsPanel.removeAll();
         letterButtons.clear();
-
 
         for (char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(String.valueOf(c));
