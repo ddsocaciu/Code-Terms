@@ -20,7 +20,7 @@ public class QuizModel extends JFrame {
     public QuizModel() {
         // Fragen über die FileLoader-Klasse laden
         FileLoader loader = new FileLoader();
-        this.fragenAntworten = loader.loadFragen("Fragepool"); // Hier den Pfad zur Datei anpassen
+        this.fragenAntworten = loader.loadFragen("Questions_Answer_QuizGame.txt"); // Hier den Pfad zur Datei anpassen
 
         if (this.fragenAntworten[0][0] == null) {
             JOptionPane.showMessageDialog(this, "Keine Fragen gefunden!", "Fehler", JOptionPane.ERROR_MESSAGE);
