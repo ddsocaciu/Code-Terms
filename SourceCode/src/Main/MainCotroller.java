@@ -21,6 +21,7 @@ public class MainCotroller implements ActionListener {
     private FileInfoPanel fip;
     private FilePanel fp;
     private FileLoader fileLoader = new FileLoader();
+    private QuizModel quizModel;
 
     public MainCotroller() {
         this.startPanel.setVisible(true);
@@ -69,7 +70,7 @@ public class MainCotroller implements ActionListener {
          * EVENTHANDLER nur für den QUIZMODUS
          */
         if ("start_quiz".equals(action)) {
-            QuizModel quizModel = new QuizModel(); // Instanz des Quiz-Models erstellen
+            quizModel = new QuizModel(); // Instanz des Quiz-Models erstellen
             startPanel.setVisible(false); // Startpanel ausblenden
         }
         /**

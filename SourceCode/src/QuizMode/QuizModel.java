@@ -75,8 +75,4 @@ public class QuizModel extends JFrame {
         this.frageLabel.setText(this.fragenAntworten[0][this.aktuelleFrageIndex]); // Zugriff auf die Frage
         this.antwortFeld.setText(""); // Eingabefeld leeren
     }
-
-    public static void main(String[] args) {
-        new QuizModel();
-    }
 }
