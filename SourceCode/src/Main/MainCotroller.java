@@ -6,11 +6,12 @@ import java.awt.event.ActionListener;
 import FileSource.*;
 import Startmenue.*;
 import GameMode.*;
+import QuizMode.*;
 
 /**
  * Diese Klasse managed die Applikation vom Startmenü aus
  *
- * @author Maximilian Mahrhofer
+ * @author Maximilian Mahrhofer, David Socaciu, Danilo Prstic
  * @version 2024-12-24
  */
 public class MainCotroller implements ActionListener {
@@ -68,7 +69,8 @@ public class MainCotroller implements ActionListener {
          * EVENTHANDLER nur für den QUIZMODUS
          */
         if ("start_quiz".equals(action)) {
-            // Quiz Modus
+            QuizModel quizModel = new QuizModel(); // Instanz des Quiz-Models erstellen
+            startPanel.setVisible(false); // Startpanel ausblenden
         }
         /**
          * EVENTHANDLER nur für den SPIELMODUS
