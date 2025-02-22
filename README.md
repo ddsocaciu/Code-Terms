@@ -1,7 +1,7 @@
 # **CODE TERMS**
 
 ### Einleitung
-Dieses Projekt realisiert ein Projekt für eine Lernhilfe für Fachbegriffe aus 
+Dieses Projekt realisiert eine Lernhilfe für Fachbegriffe aus 
 der Softwareentwicklung im Rahmen eines ITP-Projekts und wurde von Maximillian Mahrhofer, Danilo Prstic
 sowie David Socaciu implementiert.
 
