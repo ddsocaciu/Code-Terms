@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  *
  * Frontend für das Startmenü
- * @author Maximilian Mahrhofer
+ * @author Maximilian Mahrhofer & David Socaciu
  * @version 2024-12-02
  */
 public class StartPanel extends JFrame {
@@ -50,11 +50,17 @@ public class StartPanel extends JFrame {
 
         // Label zum waehlen des Modus
         JLabel titleLabel = new JLabel("Wähle deinen Modus", JLabel.LEFT);
+        JLabel projectName = new JLabel("CodeTerms", JLabel.LEFT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        projectName.setFont(new Font("Arial", Font.BOLD, 18));
+        projectName.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel buffer = new JLabel();
-        JPanel titlePanel = new JPanel(new GridLayout(2,1));
+        JPanel titlePanel = new JPanel(new GridLayout(5,1));
         titlePanel.setBackground(Color.WHITE);
+        titlePanel.add(projectName);
+        titlePanel.add(buffer);
+        titlePanel.add(titleLabel);
         titlePanel.add(buffer);
         titlePanel.add(titleLabel);
         this.add(titlePanel);
@@ -125,6 +131,28 @@ public class StartPanel extends JFrame {
         emptyPanel7.setBackground(Color.WHITE);
         add(emptyPanel7);
 
+        /**
+         * Buttons - Gestaltung
+         */
+        fileButton.setForeground(Color.WHITE);
+        fileButton.setBackground(Color.BLACK);
+        fileButton.setBorderPainted(false);
+        fileButton.setFocusPainted(false);
+
+        quizButton.setForeground(Color.WHITE);
+        quizButton.setBackground(Color.BLACK);
+        quizButton.setBorderPainted(false);
+        quizButton.setFocusPainted(false);
+
+        gameButton.setForeground(Color.WHITE);
+        gameButton.setBackground(Color.BLACK);
+        gameButton.setBorderPainted(false);
+        gameButton.setFocusPainted(false);
+
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setBackground(Color.BLACK);
+        exitButton.setBorderPainted(false);
+        exitButton.setFocusPainted(false);
     }
     public  void close() {
         System.exit(0);
