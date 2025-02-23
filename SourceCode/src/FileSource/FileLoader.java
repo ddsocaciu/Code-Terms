@@ -21,7 +21,11 @@ public class FileLoader {
         BufferedWriter bw = null;
         File f = null;
         if(!fileName.equals("")){
-            f = new File(fileName);
+            if(fileName.contains(".txt")){
+                f = new File(fileName);
+            }else{
+                f = new File(fileName + ".txt");
+            }
         }else{
             f = new File("Fragepool");
         }
