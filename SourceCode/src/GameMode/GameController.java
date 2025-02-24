@@ -1,5 +1,5 @@
 package GameMode;
-
+import Startmenue.StartPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +15,14 @@ public class GameController implements ActionListener {
     private final GameModel gameModel;
     private GamePanel gamePanel;
 
-    /**
-     *
-     */
     public GameController() {
         this.gameModel = new GameModel();
     }
 
+    /**
+     * Das Spiel wird gestartet
+     *
+     */
     public void startGame() {
         try {
             // Fragen laden
@@ -50,4 +51,5 @@ public class GameController implements ActionListener {
         gamePanel.disableLetterButton(letter);
         gamePanel.processGuess(letter);
     }
+
 }

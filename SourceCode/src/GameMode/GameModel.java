@@ -20,12 +20,23 @@ public class GameModel {
     private int questionCount;
     private final FileLoader fileLoader = new FileLoader();
 
+    /**
+     * Hinweis: Beschränkungen sind anpassbar
+     *
+     */
     public GameModel() {
         this.questions = new String[2][50]; // Maximale Anzahl von Fragen (50).
         this.currentQA = new String[2];    // Initialisierung für eine Frage.
         this.questionCount = 0;           // Anzahl der geladenen Fragen.
     }
 
+    /**
+     * Hier werden die Fragen aus der Datei geladen
+     * (Verweis auf gleiche Methode in FileLoader Klasse)
+     *
+     * @param filePath
+     * @throws IOException
+     */
     public void loadQuestions(String filePath) throws IOException {
         questions = fileLoader.loadFragen(filePath);
         questionCount = 0;
@@ -41,6 +52,10 @@ public class GameModel {
         }
     }
 
+    /**
+     * selectRandomQuestion wählt eine zufällige Frage aus der Array Liste aus
+     *
+     */
     public void selectRandomQuestion() {
         if (questionCount == 0) {
             currentQA = new String[]{"Keine Frage Verfügbar", ""};
@@ -52,45 +67,70 @@ public class GameModel {
         currentQA = new String[]{questions[0][index], questions[1][index]};
     }
 
+    /**
+     * Hier wird die derzeitige Frage zurueckgegeben
+     *
+     * @return
+     */
     public String getCurrentQuestion() {
-        return currentQA != null && currentQA[0] != null ? currentQA[0] : "Keine Frage Verfügbar";
+        return currentQA[0] != null ? currentQA[0] : "Keine Frage Verfügbar";
     }
 
+    /**
+     * Hier wird derzeitige Antwort zurueck gegeben
+     *
+     * @return Gibt die Antwort zrueck
+     */
     public String getCurrentAnswer() {
-        return currentQA != null && currentQA[1] != null ? currentQA[1].toLowerCase() : "";
+        return currentQA[1] != null ? currentQA[1].toLowerCase() : "";
     }
 
-    public int getWrongGuesses() {
-        return wrongGuesses;
-    }
-
+    /**
+     * Hier werden die falschen Versuche addiert
+     */
     public void incrementWrongGuesses() {
         if (wrongGuesses < 6) {
             wrongGuesses++;
         }
     }
 
+    /**
+     * isGameOver prüft ob die Anzahl der Versuche die maximale Versuchanzahl übersteigt
+     *
+     * @return wrongGuesses
+     */
     public boolean isGameOver() {
         return wrongGuesses >= 6;
     }
 
+    /**
+     * resetGame sort dafür, dass das Spiel neu gestartet wird (neue Frage)
+     */
     public void resetGame() {
         wrongGuesses = 0;
         selectRandomQuestion();
     }
 
-    public void draw(Graphics g) {
-        g.setColor(color);
-        g.drawLine(50, 200, 150, 200); // Zeichnet den Boden.
-        g.drawLine(100, 200, 100, 50); // Zeichnet die Stange.
-        g.drawLine(100, 50, 200, 50);  // Zeichnet die obere Basis.
-        g.drawLine(200, 50, 200, 70);  // Zeichnet die Schlinge.
+    /**
+     * Hier wird das Hangman-Game gezeichnet
+     *
+     * @param g
+     * @param panelWidth
+     */
+    public void draw(Graphics g, int panelWidth) {
+        int offsetX = (panelWidth / 2) - 125;
 
-        if (wrongGuesses > 0) g.drawOval(185, 70, 30, 30); // Der Kopf.
-        if (wrongGuesses > 1) g.drawLine(200, 100, 200, 150); // Der Körper.
-        if (wrongGuesses > 2) g.drawLine(200, 110, 180, 130); // Linker Arm.
-        if (wrongGuesses > 3) g.drawLine(200, 110, 220, 130); // Rechter Arm.
-        if (wrongGuesses > 4) g.drawLine(200, 150, 180, 180); // Linkes Bein.
-        if (wrongGuesses > 5) g.drawLine(200, 150, 220, 180); // Rechtes Bein.
+        g.setColor(color);
+        g.drawLine(offsetX + 50, 200, offsetX + 150, 200);
+        g.drawLine(offsetX + 100, 200, offsetX + 100, 50);
+        g.drawLine(offsetX + 100, 50, offsetX + 200, 50);
+        g.drawLine(offsetX + 200, 50, offsetX + 200, 70);
+
+        if (wrongGuesses > 0) g.drawOval(offsetX + 185, 70, 30, 30);
+        if (wrongGuesses > 1) g.drawLine(offsetX + 200, 100, offsetX + 200, 150);
+        if (wrongGuesses > 2) g.drawLine(offsetX + 200, 110, offsetX + 180, 130);
+        if (wrongGuesses > 3) g.drawLine(offsetX + 200, 110, offsetX + 220, 130);
+        if (wrongGuesses > 4) g.drawLine(offsetX + 200, 150, offsetX + 180, 180);
+        if (wrongGuesses > 5) g.drawLine(offsetX + 200, 150, offsetX + 220, 180);
     }
 }

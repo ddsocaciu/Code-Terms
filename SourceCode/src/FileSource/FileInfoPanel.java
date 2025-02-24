@@ -23,7 +23,7 @@ public class FileInfoPanel extends JFrame {
 
         JLabel ueberschrift = new JLabel("INFORMATIONEN ZUR DATEIBEARBEITUNG");
         ueberschrift.setFont(new Font("Arial", Font.BOLD, 20));
-        ueberschrift.setForeground(Color.RED);
+        ueberschrift.setForeground(Color.BLACK);
         ueberschrift.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(ueberschrift);
         this.add(new JLabel("- Achte auf eine sinnvolle und vollstaendige Datei!", SwingConstants.CENTER));
@@ -38,11 +38,17 @@ public class FileInfoPanel extends JFrame {
         weiter.setActionCommand("weiter_fileinfopanel");
         weiter.addActionListener(mc);
         buttonPanel.add(weiter);
+        weiter.setForeground(Color.WHITE);
+        weiter.setBackground(Color.BLACK);
+        weiter.setFocusPainted(false);
 
         JButton beenden = new JButton("Beenden");
         beenden.setActionCommand("beenden_fileinfopanel");
         beenden.addActionListener(mc);
         buttonPanel.add(beenden);
+        beenden.setForeground(Color.WHITE);
+        beenden.setBackground(Color.BLACK);
+        beenden.setFocusPainted(false);
 
         this.add(buttonPanel);
 

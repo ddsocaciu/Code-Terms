@@ -21,6 +21,7 @@ public class MainCotroller implements ActionListener {
     private FileInfoPanel fip;
     private FilePanel fp;
     private FileLoader fileLoader = new FileLoader();
+    private QuizModel quizModel;
 
     public MainCotroller() {
         this.startPanel.setVisible(true);
@@ -61,7 +62,7 @@ public class MainCotroller implements ActionListener {
             fp.loadFragen(pool);
         }else if(action.equals("speichern_filepanel")){
             String fragenuAntworten = fp.getText();
-            String dateiName = fp.getName();
+            String dateiName = "Questions_Answer_QuizGame.txt";
             String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
             fileLoader.saveFragen(dateiName, fragepool);
         }
@@ -69,7 +70,7 @@ public class MainCotroller implements ActionListener {
          * EVENTHANDLER nur für den QUIZMODUS
          */
         if ("start_quiz".equals(action)) {
-            QuizModel quizModel = new QuizModel(); // Instanz des Quiz-Models erstellen
+            quizModel = new QuizModel(); // Instanz des Quiz-Models erstellen
             startPanel.setVisible(false); // Startpanel ausblenden
         }
         /**

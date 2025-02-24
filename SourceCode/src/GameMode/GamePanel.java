@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class GamePanel extends JPanel {
     private final GameModel gameModel;
+    private final GameController controller;  // Hier wird der Controller gespeichert
     private final JLabel questionLabel;
     private final JLabel wordStateLabel;
     private final JPanel drawingPanel;
@@ -24,17 +25,13 @@ public class GamePanel extends JPanel {
     private String currentAnswer;
     private JButton startMenueButton;
 
-    /**
-     *
-     * @param gameModel
-     * @param controller
-     */
     public GamePanel(GameModel gameModel, GameController controller) {
         if (gameModel == null || controller == null) {
             throw new IllegalArgumentException("GameModel und Controller dürfen nicht null sein");
         }
 
         this.gameModel = gameModel;
+        this.controller = controller;  // Controller speichern
         this.currentAnswer = gameModel.getCurrentAnswer();
         this.currentWordState = "_".repeat(currentAnswer.length());
         this.letterButtons = new ArrayList<>();
@@ -54,7 +51,7 @@ public class GamePanel extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                gameModel.draw(g);
+                gameModel.draw(g, 1850);
             }
         };
         middlePanel.add(drawingPanel, BorderLayout.CENTER);
@@ -63,13 +60,15 @@ public class GamePanel extends JPanel {
 
         // Buchstaben-Buttons
         buttonsPanel = new JPanel(new GridLayout(3, 9, 5, 5));
-        createLetterButtons(controller);
+        createLetterButtons();
         add(buttonsPanel);
-
-
     }
 
-    private void createLetterButtons(GameController controller) {
+    /**
+     * Hier werden die Buttons erstellt
+     *
+     */
+    private void createLetterButtons() {
         buttonsPanel.removeAll();
         letterButtons.clear();
 
@@ -80,15 +79,21 @@ public class GamePanel extends JPanel {
             letterButtons.add(button);
             buttonsPanel.add(button);
         }
-        startMenueButton = new JButton("Zurueck zum Hauptmenue");
-        buttonsPanel.add(startMenueButton);
 
+        startMenueButton = new JButton("Zurueck zum Hauptmenue");
         startMenueButton.setActionCommand("zurueck_gamepanel");
         startMenueButton.addActionListener(controller);
+        buttonsPanel.add(startMenueButton);
+
         buttonsPanel.revalidate();
         buttonsPanel.repaint();
     }
 
+    /**
+     * Hier werden die Buttons deaktiviert
+     *
+     * @param letter
+     */
     public void disableLetterButton(String letter) {
         for (JButton button : letterButtons) {
             if (button.getText().equalsIgnoreCase(letter)) {
@@ -98,6 +103,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Hier werden die Versuche verarbeitet
+     *
+     * @param guess Versuchter Buchstabe
+     */
     public void processGuess(String guess) {
         if (guess.length() != 1) {
             return;
@@ -137,13 +147,18 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private void restartGame() {
+    /**
+     * Hier wird das Spiel zurueckgesetzt
+     */
+    public void restartGame() {
         gameModel.resetGame();
         currentAnswer = gameModel.getCurrentAnswer();
         currentWordState = "_".repeat(currentAnswer.length());
-        questionLabel.setText("Frage: " + gameModel.getCurrentQuestion());
+        questionLabel.setText("Frage: " + gameModel.getCurrentQuestion());  // Frage zurücksetzen
         wordStateLabel.setText("Wort: " + currentWordState);
-        createLetterButtons(null); // Reset Buttons
-        drawingPanel.repaint();
+        drawingPanel.repaint();                                             // Zeichnung zurücksetzen
+        createLetterButtons();                                              // Buttons neu erstellen
     }
+
 }
+
