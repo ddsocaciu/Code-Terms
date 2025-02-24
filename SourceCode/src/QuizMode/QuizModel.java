@@ -6,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import FileSource.FileLoader; // Importiere die FileLoader-Klasse
-
+import Main.MainCotroller;
 public class QuizModel extends JFrame {
     private JLabel frageLabel;
     private JTextField antwortFeld;
     private JButton weiterButton;
     private JLabel ergebnisLabel;
     private String[][] fragenAntworten; // Die Fragen und Antworten
-    private int aktuelleFrageIndex;
+    private int aktuelleFrageIndex = 0;
     private int score = 0;
     private Random random;
 
@@ -29,7 +29,8 @@ public class QuizModel extends JFrame {
 
         // GUI Setup
         this.setTitle("Java Quiz");
-        this.setSize(400, 200);
+        this.setSize(600, 400);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(4, 1));
 
@@ -38,45 +39,45 @@ public class QuizModel extends JFrame {
         this.weiterButton = new JButton("Weiter");
         this.ergebnisLabel = new JLabel("Punkte: " + this.score);
 
+        // ActionListener für den Button hinzufügen
         this.weiterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ueberpruefeAntwort();
+                String userAntwort = antwortFeld.getText().trim();
+                String richtigeAntwort = fragenAntworten[1][aktuelleFrageIndex]; // Zugriff auf die Antwort
+
+                if (userAntwort.equalsIgnoreCase(richtigeAntwort)) {
+                    score++;
+                }
+
+                ergebnisLabel.setText("Punkte: " + score);
+
+                if (aktuelleFrageIndex < fragenAntworten[0].length - 1 && fragenAntworten[0][aktuelleFrageIndex + 1] != null) {
+                    aktuelleFrageIndex++; // Zur nächsten Frage gehen
+                } else {
+                    // Quiz beendet
+                    JOptionPane.showMessageDialog(QuizModel.this, "Quiz beendet! Dein Score: " + score, "Quiz Ende", JOptionPane.INFORMATION_MESSAGE);
+                    QuizModel.this.dispose(); // Fenster schließen
+
+
+                    MainCotroller mainController = new MainCotroller();
+
+                    return; // Methode beenden
+                }
+
+                frageLabel.setText(fragenAntworten[0][aktuelleFrageIndex]);
+                antwortFeld.setText("");
             }
         });
 
-        this.add(this.frageLabel);
-        this.add(this.antwortFeld);
-        this.add(this.weiterButton);
-        this.add(this.ergebnisLabel);
+        this.add(frageLabel);
+        this.add(antwortFeld);
+        this.add(weiterButton);
+        this.add(ergebnisLabel);
 
         this.random = new Random();
-        this.naechsteFrage();
+        frageLabel.setText(this.fragenAntworten[0][this.aktuelleFrageIndex]); // Erste Frage anzeigen
         this.setVisible(true);
     }
-
-    private void ueberpruefeAntwort() {
-        String userAntwort = this.antwortFeld.getText().trim();
-        String richtigeAntwort = this.fragenAntworten[1][this.aktuelleFrageIndex]; // Zugriff auf die Antwort
-
-        if (userAntwort.equalsIgnoreCase(richtigeAntwort)) {
-            this.score++;
-        }
-
-        this.ergebnisLabel.setText("Punkte: " + this.score);
-        this.naechsteFrage();
-    }
-
-    private void naechsteFrage() {
-        do {
-            this.aktuelleFrageIndex = random.nextInt(this.fragenAntworten[0].length);
-        } while (this.fragenAntworten[0][this.aktuelleFrageIndex] == null); // Stelle sicher, dass die Frage nicht leer ist
-
-        this.frageLabel.setText(this.fragenAntworten[0][this.aktuelleFrageIndex]); // Zugriff auf die Frage
-        this.antwortFeld.setText(""); // Eingabefeld leeren
-    }
-
-    public static void main(String[] args) {
-        new QuizModel();
-    }
 }
+
