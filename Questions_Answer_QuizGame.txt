@@ -6,6 +6,9 @@ Antwort:JVM
 Frage:Welches Schlüsselwort wird verwendet, um eine Klasse zu erweitern?
 Antwort:extends
 **********
+Frage:frage2.png
+Antwort:private
+**********
 Frage:Wie nennt man den Prozess, bei dem mehrere Methoden denselben Namen, aber unterschiedliche Parameter haben?
 Antwort:Overloading
 **********
@@ -20,6 +23,9 @@ Antwort:this
 **********
 Frage:Wie nennt man eine Klasse, die nicht instanziiert werden kann?
 Antwort:abstract
+**********
+Frage:frage3.png
+Antwort:public
 **********
 Frage:Welches Schlüsselwort wird verwendet, um eine Konstante zu deklarieren?
 Antwort:final
@@ -44,4 +50,7 @@ Antwort:break
 **********
 Frage:Welches Schlüsselwort wird verwendet, um auf Klassen aus anderen Paketen zuzugreifen?
 Antwort:import
+**********
+Frage:frage1.png
+Antwort:protected
 **********

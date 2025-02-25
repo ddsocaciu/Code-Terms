@@ -4,47 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-import FileSource.FileLoader; // Importiere die FileLoader-Klasse
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import FileSource.FileLoader;
 import Main.MainCotroller;
+
 public class QuizModel extends JFrame {
-    private JLabel frageLabel;
-    private JTextField antwortFeld;
-    private JButton weiterButton;
-    private JLabel ergebnisLabel;
-    private String[][] fragenAntworten; // Die Fragen und Antworten
-    private int aktuelleFrageIndex = 0;
-    private int score = 0;
-    private Random random;
+    JLabel bildLabel;
+    JLabel frageLabel;
+    JTextField antwortFeld;
+    JButton weiterButton;
+    JButton hauptmenueButton; // Neuer Button fürs Hauptmenü
+    JLabel ergebnisLabel;
+    String[][] fragenAntworten;
+    int aktuelleFrageIndex = 0;
+    int score = 0;
 
     public QuizModel() {
-        // Fragen über die FileLoader-Klasse laden
+        // Fragen aus Datei laden
         FileLoader loader = new FileLoader();
-        this.fragenAntworten = loader.loadFragen("Questions_Answer_QuizGame.txt"); // Hier den Pfad zur Datei anpassen
+        fragenAntworten = loader.loadFragen("Questions_Answer_QuizGame.txt");
 
-        if (this.fragenAntworten[0][0] == null) {
+        if (fragenAntworten == null || fragenAntworten.length < 2 || fragenAntworten[0].length == 0) {
             JOptionPane.showMessageDialog(this, "Keine Fragen gefunden!", "Fehler", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
 
-        // GUI Setup
-        this.setTitle("Java Quiz");
-        this.setSize(600, 400);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(4, 1));
+        // GUI Setup mit GridLayout (6 Zeilen, 1 Spalte)
+        setTitle("Java Quiz");
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridLayout(6, 1)); // Eine Zeile mehr für den Hauptmenü-Button
 
-        this.frageLabel = new JLabel();
-        this.antwortFeld = new JTextField();
-        this.weiterButton = new JButton("Weiter");
-        this.ergebnisLabel = new JLabel("Punkte: " + this.score);
+        bildLabel = new JLabel("", SwingConstants.CENTER);
+        frageLabel = new JLabel("", SwingConstants.CENTER);
+        antwortFeld = new JTextField();
+        weiterButton = new JButton("Weiter");
+        hauptmenueButton = new JButton("Hauptmenü"); // Neuer Button fürs Hauptmenü
+        ergebnisLabel = new JLabel("Punkte: " + score, SwingConstants.CENTER);
 
-        // ActionListener für den Button hinzufügen
-        this.weiterButton.addActionListener(new ActionListener() {
+        weiterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userAntwort = antwortFeld.getText().trim();
-                String richtigeAntwort = fragenAntworten[1][aktuelleFrageIndex]; // Zugriff auf die Antwort
+                String richtigeAntwort = fragenAntworten[1][aktuelleFrageIndex];
 
                 if (userAntwort.equalsIgnoreCase(richtigeAntwort)) {
                     score++;
@@ -53,30 +58,62 @@ public class QuizModel extends JFrame {
                 ergebnisLabel.setText("Punkte: " + score);
 
                 if (aktuelleFrageIndex < fragenAntworten[0].length - 1 && fragenAntworten[0][aktuelleFrageIndex + 1] != null) {
-                    aktuelleFrageIndex++; // Zur nächsten Frage gehen
+                    aktuelleFrageIndex++;
                 } else {
-                    // Quiz beendet
                     JOptionPane.showMessageDialog(QuizModel.this, "Quiz beendet! Dein Score: " + score, "Quiz Ende", JOptionPane.INFORMATION_MESSAGE);
-                    QuizModel.this.dispose(); // Fenster schließen
-
-
-                    MainCotroller mainController = new MainCotroller();
-
-                    return; // Methode beenden
+                    geheZumHauptmenue();
+                    return;
                 }
 
-                frageLabel.setText(fragenAntworten[0][aktuelleFrageIndex]);
-                antwortFeld.setText("");
+                zeigeNaechsteFrage();
             }
         });
 
-        this.add(frageLabel);
-        this.add(antwortFeld);
-        this.add(weiterButton);
-        this.add(ergebnisLabel);
+        // Hauptmenü-Button Aktion
+        hauptmenueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                geheZumHauptmenue();
+            }
+        });
 
-        this.random = new Random();
-        frageLabel.setText(this.fragenAntworten[0][this.aktuelleFrageIndex]); // Erste Frage anzeigen
-        this.setVisible(true);
+        // Reihenfolge der Elemente setzen
+        add(bildLabel);
+        add(frageLabel);
+        add(antwortFeld);
+        add(weiterButton);
+        add(hauptmenueButton); // Neuer Button unter "Weiter"
+        add(ergebnisLabel);
+
+        zeigeNaechsteFrage();
+        setVisible(true);
+    }
+
+    public void zeigeNaechsteFrage() {
+        String neueFrage = fragenAntworten[0][aktuelleFrageIndex];
+
+        if (neueFrage.toLowerCase().endsWith(".jpg") || neueFrage.toLowerCase().endsWith(".png")) {
+            try {
+                URL bildUrl = new File(neueFrage).toURI().toURL();
+                ImageIcon bildIcon = new ImageIcon(bildUrl);
+                Image skaliertesBild = bildIcon.getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH);
+                bildLabel.setIcon(new ImageIcon(skaliertesBild));
+                frageLabel.setText(""); // Keine Text-Frage, wenn Bild geladen wird
+            } catch (MalformedURLException e) {
+                frageLabel.setText("Fehler beim Laden des Bildes.");
+                bildLabel.setIcon(null);
+            }
+        } else {
+            frageLabel.setText(neueFrage);
+            bildLabel.setIcon(null); // Kein Bild setzen, wenn normale Frage
+        }
+
+        antwortFeld.setText("");
+    }
+
+    // Methode zum Wechsel ins Hauptmenü
+    private void geheZumHauptmenue() {
+        dispose(); // Schließt das Quiz-Fenster
+        new MainCotroller(); // Öffnet das Hauptmenü
     }
 }
