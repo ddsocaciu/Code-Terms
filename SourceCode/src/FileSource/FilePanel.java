@@ -17,6 +17,7 @@ public class FilePanel extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setLayout(new GridLayout(5,1));
 

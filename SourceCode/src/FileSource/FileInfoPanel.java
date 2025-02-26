@@ -18,7 +18,7 @@ public class FileInfoPanel extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(800, 600);
-
+        this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(7, 1));
 
         JLabel ueberschrift = new JLabel("INFORMATIONEN ZUR DATEIBEARBEITUNG");
