@@ -63,7 +63,11 @@ public class GameModel {
         }
 
         Random rand = new Random();
-        int index = rand.nextInt(questionCount);
+        int index;
+        // Suche nach einer gültigen Frage, die keine .png enthält
+        do {
+            index = rand.nextInt(questionCount);
+        } while (questions[0][index].endsWith(".png"));
         currentQA = new String[]{questions[0][index], questions[1][index]};
     }
 
