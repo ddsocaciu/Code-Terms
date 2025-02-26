@@ -37,6 +37,7 @@ public class GamePanel extends JPanel {
         this.letterButtons = new ArrayList<>();
 
 
+
         setLayout(new GridLayout(3, 1));
 
         // Frage anzeigen

@@ -45,6 +45,14 @@ public class QuizModel extends JFrame {
         hauptmenueButton = new JButton("Hauptmenü"); // Neuer Button fürs Hauptmenü
         ergebnisLabel = new JLabel("Punkte: " + score, SwingConstants.CENTER);
 
+        weiterButton.setForeground(Color.WHITE);
+        weiterButton.setBackground(Color.BLACK);
+        weiterButton.setFocusPainted(false);
+
+        hauptmenueButton.setForeground(Color.WHITE);
+        hauptmenueButton.setBackground(Color.BLACK);
+        hauptmenueButton.setFocusPainted(false);
+
         weiterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -53,7 +53,7 @@ public class StartPanel extends JFrame {
         JLabel projectName = new JLabel("CodeTerms", JLabel.LEFT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectName.setFont(new Font("Arial", Font.BOLD, 18));
+        projectName.setFont(new Font("Arial", Font.BOLD, 45));
         projectName.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel buffer = new JLabel();
         JPanel titlePanel = new JPanel(new GridLayout(5,1));
