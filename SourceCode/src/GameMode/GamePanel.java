@@ -1,7 +1,5 @@
 package GameMode;
 
-import Main.MainCotroller;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,19 +34,18 @@ public class GamePanel extends JPanel {
         this.currentWordState = "_".repeat(currentAnswer.length());
         this.letterButtons = new ArrayList<>();
 
-
-
-        setLayout(new GridLayout(3, 1));
+        // Nur GridLayout verwenden
+        setLayout(new GridLayout(5, 1));  // Fünf Reihen, da wir 3 Abschnitte haben: Frage, Zeichnung und Buchstaben, Menü
 
         // Frage anzeigen
         questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion(), SwingConstants.CENTER);
         add(questionLabel);
 
-        // Zeichen- und Wortstatus-Panel
-        JPanel middlePanel = new JPanel(new BorderLayout());
+        // Wortstatus anzeigen (hier ohne BorderLayout)
         wordStateLabel = new JLabel("Wort: " + currentWordState, SwingConstants.CENTER);
-        middlePanel.add(wordStateLabel, BorderLayout.NORTH);
+        add(wordStateLabel);
 
+        // Zeichen-Panel
         drawingPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -56,24 +53,22 @@ public class GamePanel extends JPanel {
                 gameModel.draw(g, 1850);
             }
         };
-        middlePanel.add(drawingPanel, BorderLayout.CENTER);
+        add(drawingPanel);
 
-        add(middlePanel);
-
-        // Buchstaben-Buttons
-        buttonsPanel = new JPanel(new GridLayout(3, 9, 5, 5));
-        createLetterButtons();
+        // Buchstaben-Buttons-Panel
+        buttonsPanel = new JPanel(new GridLayout(3, 9));  // Ein GridLayout mit 3 Zeilen und 9 Spalten für die Buchstaben
+        createLetterButtons();  // Buchstaben-Buttons hinzufügen
         add(buttonsPanel);
     }
 
     /**
      * Hier werden die Buttons erstellt
-     *
      */
     private void createLetterButtons() {
         buttonsPanel.removeAll();
         letterButtons.clear();
 
+        // Buchstaben von A bis Z erstellen
         for (char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(String.valueOf(c));
             button.setActionCommand(String.valueOf(c).toLowerCase());
@@ -82,6 +77,7 @@ public class GamePanel extends JPanel {
             buttonsPanel.add(button);
         }
 
+        // Button für "Zurück zum Hauptmenü"
         startMenueButton = new JButton("Zurueck zum Hauptmenue");
         startMenueButton.setActionCommand("zurueck_gamepanel");
         startMenueButton.addActionListener(controller);
@@ -166,4 +162,3 @@ public class GamePanel extends JPanel {
         return startMenueButton.getActionCommand();
     }
 }
-
