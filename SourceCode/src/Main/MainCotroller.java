@@ -7,6 +7,7 @@ import FileSource.*;
 import Startmenue.*;
 import GameMode.*;
 import QuizMode.*;
+import com.sun.tools.javac.Main;
 
 /**
  * Diese Klasse managed die Applikation vom Startmenü aus

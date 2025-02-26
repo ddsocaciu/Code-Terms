@@ -36,6 +36,7 @@ public class GamePanel extends JPanel {
         this.currentWordState = "_".repeat(currentAnswer.length());
         this.letterButtons = new ArrayList<>();
 
+
         setLayout(new GridLayout(3, 1));
 
         // Frage anzeigen
@@ -160,5 +161,8 @@ public class GamePanel extends JPanel {
         createLetterButtons();                                              // Buttons neu erstellen
     }
 
+    public String getButtoncmd(){
+        return startMenueButton.getActionCommand();
+    }
 }
 

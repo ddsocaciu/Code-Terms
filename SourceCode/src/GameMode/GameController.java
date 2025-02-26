@@ -1,4 +1,5 @@
 package GameMode;
+import Main.MainCotroller;
 import Startmenue.StartPanel;
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +34,7 @@ public class GameController implements ActionListener {
             JFrame frame = new JFrame("Hangman Game");
             this.gamePanel = new GamePanel(gameModel, this); // Übergibt den Controller
             frame.add(gamePanel);
-            frame.setMinimumSize(new Dimension(1300, 700));
-            frame.setSize(1900, 1400);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Sorgt dafür das die ganze Bildschirmfläche verwendet wird
             frame.setLocation(1, 10);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,9 +47,16 @@ public class GameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
         String letter = e.getActionCommand();
         gamePanel.disableLetterButton(letter);
         gamePanel.processGuess(letter);
+        if("zurueck_gamepanel".equals(action)) {
+            gamePanel.setVisible(false);
+            gamePanel.getTopLevelAncestor().setVisible(false); // Versteckt das Fenster
+            new MainCotroller();
+
+        }
     }
 
 }
