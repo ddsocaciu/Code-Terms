@@ -62,10 +62,14 @@ public class MainCotroller implements ActionListener {
             String pool = fileLoader.textFormat(filename);
             fp.loadFragen(pool);
         }else if(action.equals("speichern_filepanel")){
-            String fragenuAntworten = fp.getText();
-            String dateiName = "Questions_Answer_QuizGame.txt";
-            String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
-            fileLoader.saveFragen(dateiName, fragepool);
+            if(fp.getText().contains("Frage:") && fp.getText().contains("Antwort:") && !fp.getText().trim().isEmpty()) {
+                String fragenuAntworten = fp.getText();
+                String dateiName = "Questions_Answer_QuizGame.txt";
+                String[][] fragepool = fileLoader.saveFormat(fragenuAntworten);
+                fileLoader.saveFragen(dateiName, fragepool);
+            }else{
+                System.err.println("Du kannst keine leere Datei speichern und/oder falsch gekennzeichnete Fragen u. Antworten");
+            }
         }
         /**
          * EVENTHANDLER nur für den QUIZMODUS

@@ -54,6 +54,7 @@ public class FileLoader {
             if(bw!= null){
                 try {
                     bw.close();
+                    System.out.println("Fragepool wurde gespeichert in: " +f.getAbsolutePath());
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -97,7 +98,7 @@ public class FileLoader {
                     }
 
                 }catch(IOException e){
-                    e.printStackTrace();
+                    System.err.println("Fehler beim laden des Fragepools! Achte auf einen gültigen Dateinamen!");
                 }finally {
                     if(br != null){
                         try {
