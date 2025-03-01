@@ -1,4 +1,4 @@
-# **CODE TERMS™**
+# **CODE TERMS**
 
 ### Einleitung
 Dieses Projekt realisiert eine Lernhilfe für Fachbegriffe aus 
