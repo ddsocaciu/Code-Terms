@@ -36,14 +36,14 @@ public class GamePanel extends JPanel {
         this.currentWordState = "_".repeat(currentAnswer.length());
         this.letterButtons = new ArrayList<>();
 
-        // Nur GridLayout verwenden
-        setLayout(new GridLayout(5, 1));  // Fünf Reihen, da wir 3 Abschnitte haben: Frage, Zeichnung und Buchstaben, Menü
+        // Nur GridLayout
+        setLayout(new GridLayout(4, 1));  // 4 Reihen, da wir 3 Abschnitte haben: Frage, Zeichnung und Buchstaben, Menü
 
         // Frage anzeigen
         questionLabel = new JLabel("Frage: " + gameModel.getCurrentQuestion(), SwingConstants.CENTER);
         add(questionLabel);
 
-        // Wortstatus anzeigen (hier ohne BorderLayout)
+        // Wortstatus anzeigen
         wordStateLabel = new JLabel("Wort: " + currentWordState, SwingConstants.CENTER);
         add(wordStateLabel);
 
@@ -158,9 +158,5 @@ public class GamePanel extends JPanel {
         wordStateLabel.setText("Wort: " + currentWordState);
         drawingPanel.repaint();                                             // Zeichnung zurücksetzen
         createLetterButtons();                                              // Buttons neu erstellen
-    }
-
-    public String getButtoncmd(){
-        return startMenueButton.getActionCommand();
     }
 }
