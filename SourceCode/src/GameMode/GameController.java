@@ -34,6 +34,9 @@ public class GameController implements ActionListener {
             JFrame frame = new JFrame("Hangman Game");
             this.gamePanel = new GamePanel(gameModel, this); // Übergibt den Controller
             frame.add(gamePanel);
+
+            frame.setSize(2000,2000);
+            frame.setResizable(false);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Sorgt dafür das die ganze Bildschirmfläche verwendet wird
             frame.setLocation(1, 10);
 
