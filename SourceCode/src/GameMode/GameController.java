@@ -36,7 +36,7 @@ public class GameController implements ActionListener {
             frame.add(gamePanel);
 
             frame.setSize(2000,2000);
-            frame.setResizable(false);
+            frame.setMinimumSize(new Dimension(800, 1200)); // Mindestgröße
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Sorgt dafür das die ganze Bildschirmfläche verwendet wird
             frame.setLocation(1, 10);
 

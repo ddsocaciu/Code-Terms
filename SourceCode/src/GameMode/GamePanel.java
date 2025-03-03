@@ -52,9 +52,10 @@ public class GamePanel extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                gameModel.draw(g, 1850);
+                gameModel.draw(g, getWidth(), getHeight()); // Fragt hier dynamisch Breite & Höhe ab
             }
         };
+
         add(drawingPanel);
 
         // Buchstaben-Buttons-Panel

@@ -121,20 +121,24 @@ public class GameModel {
      * @param g
      * @param panelWidth
      */
-    public void draw(Graphics g, int panelWidth) {
-        int offsetX = (panelWidth / 2) - 125;
+    public void draw(Graphics g, int panelWidth, int panelHeight) {
+        int centerX = panelWidth / 2;
+        int centerY = panelHeight / 3 - 30;
 
         g.setColor(color);
-        g.drawLine(offsetX + 50, 200, offsetX + 150, 200);
-        g.drawLine(offsetX + 100, 200, offsetX + 100, 50);
-        g.drawLine(offsetX + 100, 50, offsetX + 200, 50);
-        g.drawLine(offsetX + 200, 50, offsetX + 200, 70);
 
-        if (wrongGuesses > 0) g.drawOval(offsetX + 185, 70, 30, 30);
-        if (wrongGuesses > 1) g.drawLine(offsetX + 200, 100, offsetX + 200, 150);
-        if (wrongGuesses > 2) g.drawLine(offsetX + 200, 110, offsetX + 180, 130);
-        if (wrongGuesses > 3) g.drawLine(offsetX + 200, 110, offsetX + 220, 130);
-        if (wrongGuesses > 4) g.drawLine(offsetX + 200, 150, offsetX + 180, 180);
-        if (wrongGuesses > 5) g.drawLine(offsetX + 200, 150, offsetX + 220, 180);
+        // Galgen
+        g.drawLine(centerX - 50, centerY + 150, centerX + 50, centerY + 150); // // Zeichnet den Boden.
+        g.drawLine(centerX, centerY + 150, centerX, centerY); // Zeichnet die Stange.
+        g.drawLine(centerX, centerY, centerX + 100, centerY); // Zeichnet die obere Basis.
+        g.drawLine(centerX + 100, centerY, centerX + 100, centerY + 20); //  Zeichnet die Schlinge.
+
+        // Für die Figur
+        if (wrongGuesses > 0) g.drawOval(centerX + 85, centerY + 20, 30, 30); // Der Kopf
+        if (wrongGuesses > 1) g.drawLine(centerX + 100, centerY + 50, centerX + 100, centerY + 100); // Der Körper.
+        if (wrongGuesses > 2) g.drawLine(centerX + 100, centerY + 60, centerX + 80, centerY + 80); // linker Arm.
+        if (wrongGuesses > 3) g.drawLine(centerX + 100, centerY + 60, centerX + 120, centerY + 80); // rechter Arm.
+        if (wrongGuesses > 4) g.drawLine(centerX + 100, centerY + 100, centerX + 80, centerY + 130); // linkes Bein.
+        if (wrongGuesses > 5) g.drawLine(centerX + 100, centerY + 100, centerX + 120, centerY + 130); // rechtes Bein.
     }
 }
